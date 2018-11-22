@@ -19,21 +19,41 @@
             <h3>LETS YOU AND HIM FIGHT</h3>
         </div>
         <!--  row 2 = fighters -->
-        <div class="row">
-            <div class="col-md-2">1</div>
-            <div class="col-md-2">2</div>
-            <div class="col-md-2">3</div>
-            <div class="col-md-2">4</div>
+        <div class="d-flex row">
+            <div id="obi" class="charBox col-md-2">
+                <p>name</p>
+                <img>
+                <p>hp</p>
+            </div>
+            <div id="luke" class="charBox col-md-2">
+                <p>name</p>
+                <img>
+                <p>hp</p>
+            </div>
+            <div id="vader" class="charBox col-md-2">
+                <p>name</p>
+                <img>
+                <p>hp</p>
+            </div>
+            <div id="maul" class="charBox col-md-2">
+                <p>name</p>
+                <img>
+                <p>hp</p>
+            </div>
         </div>
         <!--  row 3 = player character goes here -->
         <div class="row">
-            <h4 >Your character</h4>
+            <h4 class="col-md-12">Your Character</h4>
+            <img id="yourChar">
         </div>
         <!--Empty Space Here-->
 
         <!--  row 4 = "enemies available to attack" section-->
         <div class="row">
-            <h4>Enemies available to attack</h4>
+            <h4>Enemies Available to Attack</h4>
+            <img class="availEnemies">
+            <img class="availEnemies">
+            <img class="availEnemies">
         </div>
         <!--  row 5 = attack button -->
         <div class="row">
@@ -42,6 +62,7 @@
         <!--  row 6 = Defender section -->
         <div class="row">
             <h4>Defender</h4>
+            <img id="defendChar">
         </div>
         <!--  row 7 = hidden elements (so-and-so defeated text and reset button) -->
     </main>
