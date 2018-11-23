@@ -20,57 +20,57 @@
         </div>
         <!--  row 2 = fighters -->
         <div class="d-flex row">
-            <div id="obi" class="charBox col-md-2 img-fluid">
+            <div id="obi" class="charBox col-md-2 img-fluid unchosen">
                 <p>name</p>
                 <img class="img-fluid" src="assets/images/Obi.jpg" alt="Obi-wan Kenobi">
                 <p id="obiHP">hp</p>
             </div>
-            <div id="luke" class="charBox col-md-2 img-fluid">
+            <div id="luke" class="charBox col-md-2 img-fluid unchosen">
                 <p>name</p>
                 <img class="img-fluid" src="assets/images/Luke.png" alt="Luke Skywalker">
                 <p id="lukeHP">hp</p>
             </div>
-            <div id="vader" class="charBox col-md-2 img-fluid">
+            <div id="vader" class="charBox col-md-2 img-fluid unchosen">
                 <p>name</p>
                 <img class="img-fluid" src="assets/images/Vader.jpg" alt="Darth Vader">
                 <p id="vaderHP">hp</p>
             </div>
-            <div id="maul" class="charBox col-md-2 img-fluid">
+            <div id="maul" class="charBox col-md-2 img-fluid unchosen">
                 <p>name</p>
                 <img class="img-fluid" src="assets/images/Maul.jpg" alt="Darth Maul">
                 <p id="maulHP">hp</p>
             </div>
         </div>
-        <!--  row 3 = player character goes here -->
+        
         <div class="row">
             <h4 class="col-md-12">Your Character</h4>
-            <div id="yourChar">
-            </div>
         </div>
-        <!--Empty Space Here-->
-
-        <!--  row 4 = "enemies available to attack" section-->
+        <!--  row 4 = player character goes here -->
+        <div id="yourChar" class="row">
+            <!--Empty Space Here-->
+        </div>
+        <!--  row 5 = "enemies available to attack" section-->
         <div class="row">
             <h4>Enemies Available to Attack</h4>
-            <img class="availEnemies">
-            <img class="availEnemies">
-            <img class="availEnemies">
         </div>
-        <!--  row 5 = attack button -->
+        <div id="availEnemies" class="row">
+
+        </div>
+        <!--  row 6 = attack button -->
         <div class="row">
             <button id="attackButton">attack</button>
         </div>
-        <!--  row 6 = Defender section -->
+        <!--  row 7 = Defender section -->
         <div class="row">
             <h4>Defender</h4>
             <img id="defendChar">
         </div>
-        <!--  row 7 = hidden elements (so-and-so defeated text and reset button) -->
+        <!--  row 8 = hidden elements (so-and-so defeated text and reset button) -->
     </main>
-<!-- JS links -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-crossorigin="anonymous"></script>
-<script src="assets/game.js"></script>
+    <!-- JS links -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="assets/game.js"></script>
 </body>
 
 </html>
