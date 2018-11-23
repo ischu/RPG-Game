@@ -15,7 +15,7 @@ body{
     width: 150px;
 }
 .enemies{
-    border: none;
+    border: #555 solid 1px;
     background-color: red;
 }
 .defender{
