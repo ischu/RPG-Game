@@ -10,6 +10,19 @@ body{
     justify-content: center;
     text-align: center
 }
+.charBox img{
+    height: 100px;
+    width: 150px;
+}
+.enemies{
+    border: none;
+    background-color: red;
+}
+.defender{
+    border: green solid 1px;
+    background-color: black;
+    color: white;
+}
 #yourChar{
     height: 200px;
     width: 250px;
