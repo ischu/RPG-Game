@@ -1,7 +1,7 @@
 // character stats
 var obi = {
     name: "obi",
-    healthPoints: 200,
+    healthPoints: 10000,
     baseAttack: 10,
     counterPower: 20,
 };
@@ -30,13 +30,22 @@ var noDefender = true;
 var noCharChosen = true;
 // counts number of attacks (starts at -1 so first attack will be base attack value)
 var attackNumber = 0;
-
+var charAttack = 0;
 // jQuery code goes in this
 $(document).ready(function () {
-    $("#obi").append('<p>' + "HP:" + '<span class="HP">' + obi.healthPoints + '</span>'+'</p>');
-    $("#luke").append('<p>' + "HP:" + '<span class="HP">' + luke.healthPoints + '</span>'+'</p>');
-    $("#vader").append('<p>' + "HP:" + '<span class="HP">' + vader.healthPoints + '</span>'+'</p>');
-    $("#maul").append('<p>' + "HP:" + '<span class="HP">' + maul.healthPoints + '</span>'+'</p>');
+    $("#obi").append('<p>' + "HP: " + '<span class="HP">' + 666 + '</span>' + '</p>');
+    $("#luke").append('<p>' + "HP: " + '<span class="HP">' + 666 + '</span>' + '</p>');
+    $("#vader").append('<p>' + "HP: " + '<span class="HP">' + 666 + '</span>' + '</p>');
+    $("#maul").append('<p>' + "HP: " + '<span class="HP">' + 666 + '</span>' + '</p>');
+
+    hpSet = function (name, hp) {
+        $(name + " span.HP").text(hp);
+    };
+    hpSet("#obi", obi.healthPoints);
+    hpSet("#luke", luke.healthPoints);
+    hpSet("#vader", vader.healthPoints);
+    hpSet("#maul", maul.healthPoints);
+
     // selects character
     $("div.unchosen").on("click", function () {
         // only runs if player has not chosen a character to play as
@@ -55,6 +64,16 @@ $(document).ready(function () {
             charName = this.id.toString();
             console.log(charName + " attacking");
             noCharChosen = false;
+            // goes through objects containing character stats and matches the object with the correct charBox
+            for (i = 0; i < charArray.length; i++) {
+                if (charName === charArray[i].name) {
+                    char = charArray[i]
+                    // setting health and attack of player's character
+                    charBase = charArray[i].baseAttack;
+                    charHealth = charArray[i].healthPoints;
+                    console.log(char.name + " has an attack power of " + "?" + " and " + charHealth + " hp");
+                }
+            }
         }
         // else {
         //     console.log("noCharChosen = " + noCharChosen)
@@ -74,7 +93,15 @@ $(document).ready(function () {
                 defName = this.id.toString();
                 console.log(defName + " defending");
                 noDefender = false;
-                // return noDefender;
+                // defender is set to it stat object
+                for (i = 0; i < charArray.length; i++) {
+                    if (defName === charArray[i].name) {
+                        // setting health and counter-attack of defender
+                        defAttack = charArray[i].counterPower;
+                        defHealth = charArray[i].healthPoints;
+                        console.log(charArray[i].name + " has a counter-attack power of " + defAttack + " and " + defHealth + " hp");
+                    }
+                }
             }
             else {
                 console.log("noDefender = " + noDefender);
@@ -113,39 +140,38 @@ $(document).ready(function () {
             alert("Choose an enemy to fight!")
         }
         else {
-            // goes through objects containing character stats and matches the object with the correct charBox
-            for (i = 0; i < charArray.length; i++) {
-                if (charName === charArray[i].name) {
-                    char = charArray[i]
-                    // setting health and attack of player's character
-                    charBase = charArray[i].baseAttack;
-                    // calculates the attack power
-                    attackCalc = function () {
-                        charAttack = charBase + (charBase * attackNumber);
-                        return charAttack;
-                    }
-                    // calls function
-                    attackCalc();
 
-                    charHealth = charArray[i].healthPoints;
-                    console.log(char.name + " has an attack power of " + charAttack + " and " + char.healthPoints + " hp");
-                }
-                if (defName === charArray[i].name) {
-                    // setting health and counter-attack of defender
-                    defAttack = charArray[i].counterPower;
-                    defHealth = charArray[i].healthPoints;
-                    console.log(charArray[i].name + " has a counter-attack power of " + defAttack + " and " + defHealth + " hp");
-                }
+            // calculates the attack power
+            attackCalc = function () {
+                charAttack = charBase + (charBase * attackNumber);
+                return charAttack;
             }
+            // calls function
+            attackCalc();
             // subtracts attack from defender's health and writes it to element
-            defHealth = defHealth - charAttack;
-            console.log(defHealth);
-            $(".defender span.HP").text(defHealth);
+            attackFunction = function () {
+                defHealth -= attackCalc();
+                return defHealth;
+            }
+            console.log(defHealth, charAttack, (defHealth - charAttack), attackFunction());
+            // sets health
+            hpSet(".defender", (defHealth - charAttack));
 
             // subtract defender's counter-attack from character's health
             char.healthPoints = char.healthPoints - defAttack;
             console.log(charHealth);
-            $("div.charBox:first span.HP").text(char.healthPoints);
+            hpSet("div.charBox:first", char.healthPoints);
+
+            if (char.healthPoints <= 0) {
+                alert("game over");
+            }
+            else if (defHealth <= 0) {
+                alert("you win!");
+                noDefender = true;
+                $(".defender").addClass("ded");
+                $(".defender").removeClass("defender");
+
+            }
 
             // increases attack counter by one (DO THIS LAST)
             attackNumber++

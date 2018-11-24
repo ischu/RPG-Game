@@ -17,9 +17,13 @@ body{
 .enemies{
     border: black solid 1px;
     background-color: red;
+    color: black;
 }
 .defender{
     border: green solid 1px;
     background-color: black;
     color: white;
+}
+.ded{
+    opacity: 0;
 }
