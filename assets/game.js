@@ -1,7 +1,7 @@
 // character stats
 var obi = {
     name: "obi",
-    healthPoints: 10000,
+    healthPoints: 200,
     baseAttack: 10,
     counterPower: 20,
 };
@@ -106,29 +106,6 @@ $(document).ready(function () {
             else {
                 console.log("noDefender = " + noDefender);
             }
-            // goes through objects containing character stats and matches the object with the correct charBox
-            // for (i = 0; i < charArray.length; i++) {
-            //     if (charName === charArray[i].name) {
-            //         // setting health and attack of player's character
-            //         charBase = charArray[i].baseAttack;
-            //         // calculates the attack power
-            //         attackCalc = function () {
-            //             charAttack = charBase + (charBase * attackNumber);
-            //             return charAttack;
-            //         }
-            //         // calls function
-            //         attackCalc();
-
-            //         charHealth = charArray[i].healthPoints;
-            //         console.log(charArray[i].name + " has an attack power of " + charAttack + " and " + charHealth + " hp");
-            //     }
-            //     if (defName === charArray[i].name) {
-            //         // setting health and counter-attack of defender
-            //         defAttack = charArray[i].counterPower;
-            //         defHealth = charArray[i].healthPoints;
-            //         console.log(charArray[i].name + " has a counter-attack power of " + defAttack + " and " + defHealth + " hp");
-            //     }
-            // }
         });
     });
     // attack button
@@ -144,18 +121,16 @@ $(document).ready(function () {
             // calculates the attack power
             attackCalc = function () {
                 charAttack = charBase + (charBase * attackNumber);
+                console.log(charAttack)
                 return charAttack;
             }
             // calls function
-            attackCalc();
+            // attackCalc();
             // subtracts attack from defender's health and writes it to element
-            attackFunction = function () {
                 defHealth -= attackCalc();
-                return defHealth;
-            }
-            console.log(defHealth, charAttack, (defHealth - charAttack), attackFunction());
+            console.log(defHealth, charAttack, (defHealth - charAttack),);
             // sets health
-            hpSet(".defender", (defHealth - charAttack));
+            hpSet(".defender", defHealth);
 
             // subtract defender's counter-attack from character's health
             char.healthPoints = char.healthPoints - defAttack;
