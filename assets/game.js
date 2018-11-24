@@ -1,27 +1,27 @@
 // character stats
 var obi = {
     name: "obi",
-    healthPoints: 200,
-    baseAttack: 10,
-    counterPower: 20,
+    healthPoints: 250,
+    baseAttack: 5,
+    counterPower: 10,
 };
 var luke = {
     name: "luke",
-    healthPoints: 102,
-    baseAttack: 11,
-    counterPower: 21,
+    healthPoints: 200,
+    baseAttack: 8,
+    counterPower: 15,
 };
 var vader = {
     name: "vader",
-    healthPoints: 104,
+    healthPoints: 150,
     baseAttack: 12,
-    counterPower: 22,
+    counterPower: 20,
 };
 var maul = {
     name: "maul",
-    healthPoints: 155,
-    baseAttack: 13,
-    counterPower: 23,
+    healthPoints: 100,
+    baseAttack: 15,
+    counterPower: 25,
 };
 // array containing stat objects
 var charArray = [obi, luke, vader, maul];
@@ -30,7 +30,7 @@ var noDefender = true;
 var noCharChosen = true;
 // counts number of attacks (starts at -1 so first attack will be base attack value)
 var attackNumber = 0;
-var charAttack = 0;
+// var charAttack = 0;
 // jQuery code goes in this
 $(document).ready(function () {
     $("#obi").append('<p>' + "HP: " + '<span class="HP">' + 666 + '</span>' + '</p>');
@@ -71,7 +71,7 @@ $(document).ready(function () {
                     // setting health and attack of player's character
                     charBase = charArray[i].baseAttack;
                     charHealth = charArray[i].healthPoints;
-                    console.log(char.name + " has an attack power of " + "?" + " and " + charHealth + " hp");
+                    console.log(char.name + " has an attack power of " + charBase + " and " + charHealth + " hp");
                 }
             }
         }
@@ -108,50 +108,53 @@ $(document).ready(function () {
             }
         });
     });
+
     // attack button
+
     $("#attackButton").on("click", function () {
         // check if player has chosen a character and a defender
-        if (noDefender && noCharChosen) {
+        if (noCharChosen) {
             alert("Choose a character!")
         } else if (noDefender) {
             alert("Choose an enemy to fight!")
         }
         else {
-
             // calculates the attack power
-            attackCalc = function () {
+            attackPower = function () {
                 charAttack = charBase + (charBase * attackNumber);
                 console.log(charAttack)
                 return charAttack;
             }
-            // calls function
-            // attackCalc();
-            // subtracts attack from defender's health and writes it to element
-                defHealth -= attackCalc();
-            console.log(defHealth, charAttack, (defHealth - charAttack),);
-            // sets health
-            hpSet(".defender", defHealth);
-
-            // subtract defender's counter-attack from character's health
-            char.healthPoints = char.healthPoints - defAttack;
-            console.log(charHealth);
-            hpSet("div.charBox:first", char.healthPoints);
-
-            if (char.healthPoints <= 0) {
+            // attack only if still alive
+            if (charHealth > 0) {
+                // subtracts attack from defender's health
+                defHealth -= attackPower();
+                console.log(char.name + " has " + attackPower() + " attack power");
+                // sets defender's health
+                hpSet(".defender", defHealth);
+                // counter-attack if defender is still alive
+                if (defHealth > 0) {
+                    // subtract defender's counter-attack from character's health
+                    charHealth = charHealth - defAttack;
+                    console.log(charHealth);
+                    hpSet("div.charBox:first", charHealth);
+                }
+                else if (defHealth <= 0) {
+                    alert("you win!");
+                    // clears the defender area to allow another challenger to be fought
+                    noDefender = true;
+                    // invisiblizes defeated defender
+                    $(".defender").addClass("ded");
+                    $(".defender").removeClass("defender");
+                    // tucks corpse away where no one will go looking
+                    $("#availEnemies").append($(".ded"));
+                }
+            } 
+            else if (charHealth <= 0) {
                 alert("game over");
             }
-            else if (defHealth <= 0) {
-                alert("you win!");
-                noDefender = true;
-                $(".defender").addClass("ded");
-                $(".defender").removeClass("defender");
-
-            }
-
             // increases attack counter by one (DO THIS LAST)
             attackNumber++
-            // goes through objects containing character stats and matches the object with the correct charBox
-
         }
     });
 });

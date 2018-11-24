@@ -23,6 +23,7 @@ body{
     border: green solid 1px;
     background-color: black;
     color: white;
+    float: left;
 }
 .ded{
     opacity: 0;
