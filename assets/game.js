@@ -2,32 +2,35 @@
 var obi = {
     name: "obi",
     healthPoints: 200,
-    attackPower: 10,
-    counterPower: 10,
+    baseAttack: 10,
+    counterPower: 20,
 };
 var luke = {
     name: "luke",
     healthPoints: 102,
-    attackPower: 11,
-    counterPower: 10,
+    baseAttack: 11,
+    counterPower: 21,
 };
 var vader = {
     name: "vader",
     healthPoints: 104,
-    attackPower: 12,
-    counterPower: 10,
+    baseAttack: 12,
+    counterPower: 22,
 };
 var maul = {
     name: "maul",
     healthPoints: 155,
-    attackPower: 13,
-    counterPower: 10,
+    baseAttack: 13,
+    counterPower: 23,
 };
 // array containing stat objects
 var charArray = [obi, luke, vader, maul];
 // "flag" variables for choosing if function should run
 var noDefender = true;
 var noCharChosen = true;
+// counts number of attacks (starts at -1 so first attack will be base attack value)
+var attackNumber = -1;
+
 // jQuery code goes in this
 $(document).ready(function () {
     $("#obi").append("HP:" + obi.healthPoints);
@@ -53,9 +56,10 @@ $(document).ready(function () {
             console.log(charName + " chosen");
             noCharChosen = false;
         }
-        else {
-            console.log("noCharChosen = " + noCharChosen)
-        }
+        // else {
+        //     console.log("noCharChosen = " + noCharChosen)
+        // }
+
         // selects defender
         $("div.enemies").on("click", function () {
             // only works if no defender has been chosen yet
@@ -66,9 +70,11 @@ $(document).ready(function () {
                 $(this).removeClass("enemies");
                 // adds "defender" class to chosen character
                 $(this).addClass("defender");
-                console.log("defender chosen")
+                // sets defName to the id of defending character (used later to select corresponding object)
+                defName = this.id.toString();
+                console.log(defName + " chosen");
                 noDefender = false;
-                return noDefender;
+                // return noDefender;
             }
             else {
                 console.log("noDefender = " + noDefender);
@@ -77,10 +83,39 @@ $(document).ready(function () {
     });
     // attack button
     $("#attackButton").on("click", function () {
-        console.log(charName)
-        for (i = 0; i < charArray.length; i++) {
-            if (charName === charArray[i].name) {
-                console.log(charArray[i].name + " has an attack power of " + charArray[i].attackPower);
+        // check if player has chosen a character and a defender
+        if (noDefender && noCharChosen) {
+            alert("Choose a character!")
+        } else if (noDefender) {
+            alert("Choose an enemy to fight!")
+        }
+        else {
+            // increases attack counter by one
+            attackNumber++
+            console.log("this is the attack number: " + attackNumber);
+            // goes through objects containing character stats and matches the object with the correct charBox
+            for (i = 0; i < charArray.length; i++) {
+                if (charName === charArray[i].name) {
+                    
+                    // setting health and attack of player's character
+                    charBase = charArray[i].baseAttack;
+                    attackCalc = function() {
+                     charAttack = charBase + (charBase * attackNumber);
+                     console.log(charAttack);
+                     return charAttack;
+                    }
+                    attackCalc();
+                    console.log(charArray[i].name + " has an attack power of " + charAttack);
+                    charHealth = charArray[i].healthPoints;
+                    console.log(charAttack+" "+charHealth);
+                }
+                if (defName === charArray[i].name) {
+                    console.log(charArray[i].name + " has a counter-attack power of " + charArray[i].counterPower)
+                    // setting health and counter-attack of defender
+                    defAttack = charArray[i].counterPower;
+                    defHealth = charArray[i].healthPoints;
+                    console.log(defAttack+" "+defHealth);
+                }
             }
         }
     });
