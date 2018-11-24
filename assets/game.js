@@ -29,14 +29,14 @@ var charArray = [obi, luke, vader, maul];
 var noDefender = true;
 var noCharChosen = true;
 // counts number of attacks (starts at -1 so first attack will be base attack value)
-var attackNumber = -1;
+var attackNumber = 0;
 
 // jQuery code goes in this
 $(document).ready(function () {
-    $("#obi").append("HP:" + obi.healthPoints);
-    $("#luke").append("HP:" + luke.healthPoints);
-    $("#vader").append("HP:" + vader.healthPoints);
-    $("#maul").append("HP:" + maul.healthPoints);
+    $("#obi").append('<p>' + "HP:" + '<span class="HP">' + obi.healthPoints + '</span>'+'</p>');
+    $("#luke").append('<p>' + "HP:" + '<span class="HP">' + luke.healthPoints + '</span>'+'</p>');
+    $("#vader").append('<p>' + "HP:" + '<span class="HP">' + vader.healthPoints + '</span>'+'</p>');
+    $("#maul").append('<p>' + "HP:" + '<span class="HP">' + maul.healthPoints + '</span>'+'</p>');
     // selects character
     $("div.unchosen").on("click", function () {
         // only runs if player has not chosen a character to play as
@@ -53,7 +53,7 @@ $(document).ready(function () {
             $(".enemies").removeClass("unchosen");
             // sets charName to the id of chosen character (used later to select corresponding object)
             charName = this.id.toString();
-            console.log(charName + " chosen");
+            console.log(charName + " attacking");
             noCharChosen = false;
         }
         // else {
@@ -72,13 +72,36 @@ $(document).ready(function () {
                 $(this).addClass("defender");
                 // sets defName to the id of defending character (used later to select corresponding object)
                 defName = this.id.toString();
-                console.log(defName + " chosen");
+                console.log(defName + " defending");
                 noDefender = false;
                 // return noDefender;
             }
             else {
                 console.log("noDefender = " + noDefender);
             }
+            // goes through objects containing character stats and matches the object with the correct charBox
+            // for (i = 0; i < charArray.length; i++) {
+            //     if (charName === charArray[i].name) {
+            //         // setting health and attack of player's character
+            //         charBase = charArray[i].baseAttack;
+            //         // calculates the attack power
+            //         attackCalc = function () {
+            //             charAttack = charBase + (charBase * attackNumber);
+            //             return charAttack;
+            //         }
+            //         // calls function
+            //         attackCalc();
+
+            //         charHealth = charArray[i].healthPoints;
+            //         console.log(charArray[i].name + " has an attack power of " + charAttack + " and " + charHealth + " hp");
+            //     }
+            //     if (defName === charArray[i].name) {
+            //         // setting health and counter-attack of defender
+            //         defAttack = charArray[i].counterPower;
+            //         defHealth = charArray[i].healthPoints;
+            //         console.log(charArray[i].name + " has a counter-attack power of " + defAttack + " and " + defHealth + " hp");
+            //     }
+            // }
         });
     });
     // attack button
@@ -90,33 +113,44 @@ $(document).ready(function () {
             alert("Choose an enemy to fight!")
         }
         else {
-            // increases attack counter by one
-            attackNumber++
-            console.log("this is the attack number: " + attackNumber);
             // goes through objects containing character stats and matches the object with the correct charBox
             for (i = 0; i < charArray.length; i++) {
                 if (charName === charArray[i].name) {
-                    
+                    char = charArray[i]
                     // setting health and attack of player's character
                     charBase = charArray[i].baseAttack;
-                    attackCalc = function() {
-                     charAttack = charBase + (charBase * attackNumber);
-                     console.log(charAttack);
-                     return charAttack;
+                    // calculates the attack power
+                    attackCalc = function () {
+                        charAttack = charBase + (charBase * attackNumber);
+                        return charAttack;
                     }
+                    // calls function
                     attackCalc();
-                    console.log(charArray[i].name + " has an attack power of " + charAttack);
+
                     charHealth = charArray[i].healthPoints;
-                    console.log(charAttack+" "+charHealth);
+                    console.log(char.name + " has an attack power of " + charAttack + " and " + char.healthPoints + " hp");
                 }
                 if (defName === charArray[i].name) {
-                    console.log(charArray[i].name + " has a counter-attack power of " + charArray[i].counterPower)
                     // setting health and counter-attack of defender
                     defAttack = charArray[i].counterPower;
                     defHealth = charArray[i].healthPoints;
-                    console.log(defAttack+" "+defHealth);
+                    console.log(charArray[i].name + " has a counter-attack power of " + defAttack + " and " + defHealth + " hp");
                 }
             }
+            // subtracts attack from defender's health and writes it to element
+            defHealth = defHealth - charAttack;
+            console.log(defHealth);
+            $(".defender span.HP").text(defHealth);
+
+            // subtract defender's counter-attack from character's health
+            char.healthPoints = char.healthPoints - defAttack;
+            console.log(charHealth);
+            $("div.charBox:first span.HP").text(char.healthPoints);
+
+            // increases attack counter by one (DO THIS LAST)
+            attackNumber++
+            // goes through objects containing character stats and matches the object with the correct charBox
+
         }
     });
 });
