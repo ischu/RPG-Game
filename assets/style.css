@@ -1,6 +1,7 @@
 body{
     font-family: sans-serif;
-    background: url("images/Dagobah.jpeg");
+    background: url("images/outerspace.jpg");
+    background-size: 100vw;
     display: flex;
     font-family: "Source Code Pro", 'Courier New', Courier, monospace;
     color: rgb(248,238,68);
@@ -31,4 +32,18 @@ body{
 }
 .ded{
     opacity: 0;
+}
+#title{
+}
+#defender{
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+#attackButton{
+    background:rgb(186,0,0);
+    color: white;
+}
+#resetButton{
+    color: black;
+    background: rgb(248,238,68);
 }
