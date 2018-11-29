@@ -1,11 +1,16 @@
 body{
     font-family: sans-serif;
-    background: url("images/outerspace.jpg");
-    background-size: 100vw;
-    display: flex;
+    background:  black;
     font-family: "Source Code Pro", 'Courier New', Courier, monospace;
     color: rgb(248,238,68);
-
+    height: 130vh;
+    width: 100vw;
+}
+main{
+   background: url("images/outerspace.jpg");
+   background-size: cover;
+   height: 130vh;
+   width: 100vw;
 }
 .charBox{
     background: white;
@@ -33,7 +38,11 @@ body{
 .ded{
     opacity: 0;
 }
+.hide{
+    display: none;
+}
 #title{
+    font-family: serif;
 }
 #defender{
     flex-direction: row-reverse;

@@ -35,24 +35,28 @@ var enemyCount = 2;
 // jQuery code goes in this
 $(document).ready(function () {
 
-
+    // functions that set up page
     hpSet = function (name, hp) {
         $(name + " span.HP").text(hp);
     };
 
-    initialHP = function() {
-    $("#obi").append('<p>' + "HP: " + '<span class="HP">' + 666 + '</span>' + '</p>');
-    $("#luke").append('<p>' + "HP: " + '<span class="HP">' + 666 + '</span>' + '</p>');
-    $("#vader").append('<p>' + "HP: " + '<span class="HP">' + 666 + '</span>' + '</p>');
-    $("#maul").append('<p>' + "HP: " + '<span class="HP">' + 666 + '</span>' + '</p>');
-    hpSet("#obi", obi.healthPoints);
-    hpSet("#luke", luke.healthPoints);
-    hpSet("#vader", vader.healthPoints);
-    hpSet("#maul", maul.healthPoints);
+    initialHP = function () {
+        hpSet("#obi", obi.healthPoints);
+        hpSet("#luke", luke.healthPoints);
+        hpSet("#vader", vader.healthPoints);
+        hpSet("#maul", maul.healthPoints);
     };
 
     initialHP();
-
+    // reset game function
+    resetti = function () {
+        $("#defender").html("<p id=resetInstr>Press the Reset button to play again!<p>");
+        $("#resetInstr").append("<br><br><button class=btn alert id=resetButton> reset </button>");
+        $("#resetButton").on("click", function () {
+            // refreshes page
+            location.reload();
+        });
+    };
     // selects character
     $("div.unchosen").on("click", function () {
         // only runs if player has not chosen a character to play as
@@ -76,9 +80,9 @@ $(document).ready(function () {
                 if (charName === charArray[i].name) {
                     char = charArray[i]
                     // setting health and attack of player's character
-                    charBase = charArray[i].baseAttack;
+                    baseAttack = charArray[i].baseAttack;
                     charHealth = charArray[i].healthPoints;
-                    console.log(char.name + " has an attack power of " + charBase + " and " + charHealth + " hp");
+                    console.log(char.name + " has an attack power of " + baseAttack + " and " + charHealth + " hp");
                 }
             }
         }
@@ -108,6 +112,7 @@ $(document).ready(function () {
                         console.log(charArray[i].name + " has a counter-attack power of " + defAttack + " and " + defHealth + " hp");
                     }
                 }
+                $("#defender").addClass("hide");
 
             }
             else {
@@ -128,7 +133,7 @@ $(document).ready(function () {
         else {
             // calculates the attack power
             attackPower = function () {
-                charAttack = charBase + (charBase * attackNumber);
+                charAttack = baseAttack + (baseAttack * attackNumber);
                 console.log(charAttack)
                 return charAttack;
             }
@@ -147,37 +152,36 @@ $(document).ready(function () {
                     hpSet("div.charBox:first", charHealth);
                 }
                 else if (defHealth <= 0) {
-                    alert("you win!");
                     // clears the defender area to allow another challenger to be fought
                     noDefender = true;
                     // invisiblizes defeated defender
                     $(".defender").addClass("ded");
-                    $(".defender").removeClass("defender");
-                    // runs if there are still enemies left to fight
+                    $(".ded").remove();
+                    // runs if there are no enemies left to fight
                     if (enemyCount > 0) {
                         // adds an instruction to choose next fighter
                         $("#defender").append("<p id=newDefInstr >Choose a new enemy to fight!</p>");
-                        
+
                         // reduces enemyCount (when zero, game is set to reset)
                         enemyCount--
 
                         console.log(enemyCount);
                     }
+                    // sets game for reset if no enemies left
                     else {
-                        $("#defender").append("<p id=resetInstr>Press the Reset button to play again!<p>");
-                        $("#resetInstr").append("<br><br><button class=btn alert id=resetButton> reset </button>");
-                        $("#resetButton").on("click", function (){
-                            // refreshes page
-                            location.reload();
-                            console.log("resetti");
-                        });
+                        resetti();
                     }
                 }
             }
-            // fix so health doesn't go negative
-            else if (charHealth <= 0) {
-                alert("game over");
-            }
+            // function that checks if player has lost game
+            gameOverCheck = function () {
+                if (charHealth <= 0) {
+                    alert("game over");
+                    resetti();
+                };
+            };
+            // game over if character health below zero
+            gameOverCheck();
             // increases attack counter by one (DO THIS LAST)
             attackNumber++
         }
