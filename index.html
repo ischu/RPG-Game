@@ -15,63 +15,57 @@
 
 <body>
     <main class="container-fluid">
-        <!--  row 1 = title -->
-        <!-- <div class="row">
-        </div> -->
-        <!--  row 2 = fighters -->
-        <div class="d-flex row">
+        <!--  row 1 = Fighters & Title-->
+        <div class="d-flex row pt-2 pl-1">
             <div id="obi" class="charBox col-md-2 img-fluid unchosen">
                 <p>Obi-wan</p>
                 <img class="img-fluid" src="assets/images/Obi.jpg" alt="Obi-wan Kenobi">
-                <p>  HP: <span class="HP"> null </span></p>
+                <p> HP: <span class="HP"> star </span></p>
             </div>
             <div id="luke" class="charBox col-md-2 img-fluid unchosen">
                 <p>Luke</p>
                 <img class="img-fluid" src="assets/images/Luke.png" alt="Luke Skywalker">
-                <p>  HP: <span class="HP"> null </span></p>
+                <p> HP: <span class="HP"> wars </span></p>
             </div>
             <div id="vader" class="charBox col-md-2 img-fluid unchosen">
                 <p>Darth Vader</p>
                 <img class="img-fluid" src="assets/images/Vader.jpg" alt="Darth Vader">
-                <p>  HP: <span class="HP"> null </span></p>
+                <p> HP: <span class="HP"> is just </span></p>
             </div>
             <div id="maul" class="charBox col-md-2 img-fluid unchosen">
                 <p>Darth Maul</p>
                 <img class="img-fluid" src="assets/images/Maul.jpg" alt="Darth Maul">
-                <p>  HP: <span class="HP"> null </span></p>
+                <p> HP: <span class="HP"> fine </span></p>
             </div>
             <div id="title" class="col-md-4 ml-auto">
-                <h3 >STAR WARS FIGHT GAME</h3>
+                <h3>STAR WARS FIGHT GAME</h3>
             </div>
         </div>
 
         <div class="row">
             <h4 class="col-md-12">Your Character</h4>
         </div>
-        <!--  row 4 = player character goes here -->
+        <!--  row 2 = player character goes here -->
         <div id="yourChar" class="row">
             <!--Empty Space Here-->
         </div>
-        <!--  row 5 = "enemies available to attack" section-->
-        <div class="row">
-            <h4 class="col-md-12">Enemies Available to Attack</h4>
-        </div>
+        <!--  row 3 = "enemies available to attack" section-->
         <div id="availEnemies" class="row">
+            <h4 class="col-md-12">Enemies Available to Attack</h4>
 
         </div>
-        <!--  row 6 = attack button -->
+        <!--  row 4 = attack button -->
         <div class="row">
             <h4 class="col-md-12">Fight Section</h4>
             <button id="attackButton" class="alert btn">ATTACK</button>
         </div>
-        <!--  row 7 = Defender section -->
+        <!--  row 5 = Defender section -->
         <div class="row">
             <h4 class="col-md-12">Defender</h4>
         </div>
         <div id="defender" class="row d-flex">
-        
+
         </div>
-        <!--  row 8 = hidden elements (so-and-so defeated text and reset button) -->
     </main>
     <!-- JS links -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="

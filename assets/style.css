@@ -3,13 +3,13 @@ body{
     background:  black;
     font-family: "Source Code Pro", 'Courier New', Courier, monospace;
     color: rgb(248,238,68);
-    height: 130vh;
+    height: 100vh;
     width: 100vw;
 }
 main{
    background: url("images/outerspace.jpg");
    background-size: cover;
-   height: 130vh;
+   height: 100vh;
    width: 100vw;
 }
 .charBox{
@@ -18,7 +18,8 @@ main{
     color: black;
     align-content: center;
     justify-content: center;
-    text-align: center
+    text-align: center;
+    font-family: "Roboto Mono", monospace;
 }
 .charBox img{
     height: 100px;
@@ -35,14 +36,12 @@ main{
     color: white;
     float: left;
 }
-.ded{
-    opacity: 0;
-}
 .hide{
     display: none;
 }
 #title{
-    font-family: serif;
+    font-family: "Roboto Mono", monospace;
+    font-weight: bolder;
 }
 #defender{
     flex-direction: row-reverse;
